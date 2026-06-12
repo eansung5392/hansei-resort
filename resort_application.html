@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>소노 콘도 사용 신청 | 총무처</title>
+<style>
+  :root {
+    --primary: #185FA5;
+    --primary-light: #E6F1FB;
+    --primary-mid: #B5D4F4;
+    --accent: #0F6E56;
+    --accent-light: #E1F5EE;
+    --gray-50: #F8F8F6;
+    --gray-100: #F1EFE8;
+    --gray-300: #D3D1C7;
+    --gray-500: #888780;
+    --gray-700: #444441;
+    --gray-900: #2C2C2A;
+    --danger: #E24B4A;
+    --danger-light: #FCEBEB;
+    --success: #3B6D11;
+    --success-light: #EAF3DE;
+    --warning: #BA7517;
+    --warning-light: #FAEEDA;
+    --border: rgba(0,0,0,0.10);
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-900);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--primary);
+    text-decoration: none;
+  }
+  .nav-brand .badge {
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+  }
+  .nav-tab {
+    padding: 0 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-500);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .nav-tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+  .nav-tab:hover { color: var(--primary); }
+
+  /* LAYOUT */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  .container-wide {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary) 0%, #0C447C 100%);
+    color: #fff;
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .page-header h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+  .page-header p { font-size: 14px; opacity: 0.85; }
+
+  /* CARD */
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-title svg { flex-shrink: 0; }
+
+  /* FORM */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .form-grid.full { grid-template-columns: 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group.span2 { grid-column: span 2; }
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+  }
+  label .required { color: var(--danger); margin-left: 2px; }
+
+  input, select, textarea {
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    font-size: 14px;
+    color: var(--gray-900);
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    font-family: inherit;
+    width: 100%;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(24,95,165,0.12);
+  }
+  textarea { resize: vertical; min-height: 90px; }
+
+  .input-hint {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 3px;
+  }
+
+  /* BUTTON */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 22px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: #fff;
+  }
+  .btn-primary:hover { background: #0C447C; }
+  .btn-secondary {
+    background: var(--gray-100);
+    color: var(--gray-700);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { background: var(--gray-300); }
+  .btn-success { background: var(--accent); color: #fff; }
+  .btn-success:hover { background: #085041; }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-danger:hover { background: #A32D2D; }
+  .btn-sm { padding: 5px 12px; font-size: 12px; }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* NOTICE BOX */
+  .notice {
+    background: var(--primary-light);
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #0C447C;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+  .notice ul { padding-left: 1.2rem; margin-top: 6px; }
+  .notice li { margin-bottom: 3px; }
+
+  /* STATUS BADGE */
+  .badge-status {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+  }
+  .badge-pending  { background: var(--warning-light); color: var(--warning); }
+  .badge-approved { background: var(--success-light); color: var(--success); }
+  .badge-rejected { background: var(--danger-light);  color: var(--danger);  }
+  .badge-cancelled{ background: var(--gray-100);       color: var(--gray-500);}
+
+  /* ADMIN STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .stat-card .stat-label {
+    font-size: 12px;
+    color: var(--gray-500);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .stat-card .stat-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gray-900);
+  }
+  .stat-card.highlight .stat-value { color: var(--primary); }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    background: var(--gray-50);
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+    color: var(--gray-900);
+  }
+  tbody tr:hover { background: var(--gray-50); }
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* FILTERS */
+  .filter-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .filter-bar select, .filter-bar input {
+    width: auto;
+    min-width: 140px;
+    font-size: 13px;
+    padding: 7px 10px;
+  }
+  .filter-bar .filter-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-500);
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    position: relative;
+  }
+  .modal h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none; border: none;
+    font-size: 22px;
+    color: var(--gray-500);
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+  }
+  .modal-close:hover { color: var(--gray-900); }
+  .detail-row {
+    display: flex;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label {
+    width: 90px;
+    flex-shrink: 0;
+    color: var(--gray-500);
+    font-weight: 600;
+  }
+  .modal-actions { margin-top: 1.25rem; display: flex; gap: 8px; justify-content: flex-end; }
+
+  /* SUCCESS MESSAGE */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  .success-msg.show { display: block; }
+  .success-icon {
+    width: 64px; height: 64px;
+    background: var(--success-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 28px;
+  }
+  .success-msg h2 { font-size: 20px; margin-bottom: 8px; }
+  .success-msg p { font-size: 14px; color: var(--gray-500); margin-bottom: 1.5rem; }
+
+  /* MY PAGE TABLE */
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--gray-500);
+    font-size: 14px;
+  }
+
+  /* ADMIN SUB TABS */
+  .admin-tab {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-500);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.15s;
+  }
+  .admin-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .admin-tab:hover { color: var(--primary); }
+
+  /* REGION LIST */
+  .region-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    background: var(--gray-50);
+  }
+  .region-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .region-item-name { font-weight: 700; font-size: 15px; }
+  .region-item-actions { display: flex; gap: 6px; }
+  .type-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .type-chip {
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .type-chip-del {
+    cursor: pointer;
+    opacity: 0.6;
+    font-size: 14px;
+    line-height: 1;
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+  }
+  .type-chip-del:hover { opacity: 1; }
+  .add-type-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+  }
+  .add-type-row input { flex: 1; font-size: 13px; padding: 6px 10px; }
+
+  @media (max-width: 640px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.span2 { grid-column: span 1; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    nav { padding: 0 1rem; }
+    .page-header { padding: 1.75rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    🏨 소노 콘도 신청
+    <span class="badge">행정처</span>
+  </a>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="switchPage('apply')">신청하기</div>
+    <div class="nav-tab" onclick="switchPage('mypage')">내 신청 현황</div>
+    <div class="nav-tab" onclick="requireAdminLogin()">관리자</div>
+  </div>
+</nav>
+
+<!-- ===== PAGE: 신청하기 ===== -->
+<div id="page-apply" class="page active">
+  <div class="page-header">
+    <h1>🏖️ 소노 콘도 사용 신청</h1>
+    <p>교내 구성원을 위한 리조트 사용 신청 서비스입니다. 심사 후 순차적으로 안내드립니다.</p>
+  </div>
+  <div class="container">
+
+    <div id="form-area">
+      <div class="notice" id="notice-box"></div>
+
+      <!-- 신청자 정보 -->
+      <div class="card">
+        <div class="card-title">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          신청자 정보
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>사번 <span class="required">*</span></label>
+            <input type="text" id="emp_no" placeholder="예: 20240001" maxlength="10">
+          </div>
+          <div class="form-group">
+            <label>성명 <span class="required">*</span></label>
+            <input type="text" id="name" placeholder="홍길동">
+          </div>
+          <div class="form-group">
+            <label>직책 <span class="required">*</span></label>
+            <select id="position">
+              <option value="">선택하세요</option>
+              <option>전임교수</option>
+              <option>비전임교수</option>
+              <option>직원</option>
+              <option>조교</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>소속 부서 / 학과</label>
+            <input type="text" id="department" placeholder="예: 경영학과, 총무처">
+          </div>
+          <div class="form-group">
+            <label>이메일 <span class="required">*</span></label>
+            <input type="email" id="email" placeholder="example@university.ac.kr">
+          </div>
+          <div class="form-group">
+            <label>연락처 <span class="required">*</span></label>
+            <input type="tel" id="phone" placeholder="010-0000-0000">
+          </div>
+        </div>
+      </div>
+
+      <!-- 이용 정보 -->
+      <div class="card">
+        <div class="card-title">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          이용 정보
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>요청 지역 <span class="required">*</span></label>
+            <select id="region" onchange="updateRoomTypes()">
+              <option value="">지역 선택</option>
+              <option value="설악">소노 설악</option>
+              <option value="제주">소노 제주</option>
+              <option value="양양">소노 오션 양양</option>
+              <option value="델피노">소노 델피노</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>객실 타입 <span class="required">*</span></label>
+            <select id="room_type">
+              <option value="">지역을 먼저 선택하세요</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>입실 희망일 <span class="required">*</span></label>
+            <input type="date" id="checkin_date" onchange="setMinCheckout()">
+          </div>
+          <div class="form-group">
+            <label>퇴실 희망일 <span class="required">*</span></label>
+            <input type="date" id="checkout_date">
+          </div>
+          <div class="form-group">
+            <label>이용 인원 <span class="required">*</span></label>
+            <select id="num_guests">
+              <option>1명</option>
+              <option>2명</option>
+              <option>3명</option>
+              <option>4명</option>
+              <option>5명</option>
+              <option>6명 이상</option>
+            </select>
+          </div>
+          <div class="form-group span2">
+            <label>요청 사항</label>
+            <textarea id="purpose" placeholder="사용 목적이나 특이사항을 자유롭게 입력해 주세요 (예: 가족 여행, 특정 층 선호 등)"></textarea>
+            <span class="input-hint">※ 모든 요청이 반드시 수용되지는 않습니다.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 개인정보 동의 -->
+      <div class="card" style="background: var(--gray-50);">
+        <div style="display: flex; gap: 10px; align-items: flex-start;">
+          <input type="checkbox" id="agree" style="width: auto; margin-top: 2px; flex-shrink: 0;">
+          <label for="agree" style="font-weight: 400; font-size: 13px; cursor: pointer;">
+            본인은 위 신청 목적의 개인정보 수집·이용에 동의하며, 기재한 모든 정보가 사실임을 확인합니다.
+            <strong>허위 신청 시 향후 이용 자격이 제한될 수 있습니다.</strong>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-secondary" onclick="resetForm()">초기화</button>
+        <button class="btn btn-primary" onclick="submitApplication()">신청서 제출</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="success-area" class="success-msg">
+      <div class="success-icon">✅</div>
+      <h2>신청이 접수되었습니다!</h2>
+      <p>총무처에서 검토 후 이메일로 결과를 안내드립니다.<br>처리 기간은 영업일 기준 3~5일 소요됩니다.</p>
+      <button class="btn btn-primary" onclick="newApplication()">추가 신청하기</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PAGE: 내 신청 현황 ===== -->
+<div id="page-mypage" class="page">
+  <div class="page-header">
+    <h1>📋 내 신청 현황</h1>
+    <p>신청 내역을 확인하고 처리 상태를 조회하세요.</p>
+  </div>
+  <div class="container">
+    <div class="card">
+      <div class="card-title">사번으로 조회</div>
+      <div style="display: flex; gap: 10px;">
+        <input type="text" id="search_empno" placeholder="사번 입력 (예: 20240001)" style="flex: 1;">
+        <button class="btn btn-primary" onclick="searchMyApps()">조회</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">신청 목록</div>
+      <div id="myapp-area">
+        <div class="empty-state">📭 사번을 입력하고 조회해 주세요.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: 관리자 ===== -->
+<div id="page-admin" class="page">
+  <div class="page-header">
+    <h1>⚙️ 관리자 — 신청 현황 관리</h1>
+    <p>행정처 인사총무팀 전용 페이지입니다. 신청 목록을 검토하고 승인·반려 처리하세요.</p>
+  </div>
+  <div class="container-wide">
+
+    <!-- 관리자 서브탭 -->
+    <div style="display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 1.5rem;">
+      <div class="admin-tab active" onclick="switchAdminTab('applications', this)">📋 신청 현황</div>
+      <div class="admin-tab" onclick="switchAdminTab('regions', this)">🗺️ 이용 지역 관리</div>
+      <div class="admin-tab" onclick="switchAdminTab('notice', this)">📝 안내사항 관리</div>
+    </div>
+
+    <!-- ── 신청 현황 섹션 ── -->
+    <div id="admin-section-applications">
+      <div class="stats-grid">
+        <div class="stat-card highlight">
+          <div class="stat-label">전체 신청</div>
+          <div class="stat-value" id="stat-total">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">대기 중</div>
+          <div class="stat-value" id="stat-pending" style="color: var(--warning);">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">승인</div>
+          <div class="stat-value" id="stat-approved" style="color: var(--success);">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">반려</div>
+          <div class="stat-value" id="stat-rejected" style="color: var(--danger);">0</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="filter-bar">
+          <span class="filter-label">필터:</span>
+          <select id="filter-status" onchange="renderAdminTable()">
+            <option value="">전체 상태</option>
+            <option value="PENDING">대기 중</option>
+            <option value="APPROVED">승인</option>
+            <option value="REJECTED">반려</option>
+          </select>
+          <select id="filter-region" onchange="renderAdminTable()">
+            <option value="">전체 지역</option>
+          </select>
+          <input type="text" id="filter-name" placeholder="성명 검색..." oninput="renderAdminTable()" style="min-width: 120px;">
+          <button class="btn btn-secondary btn-sm" onclick="exportCSV()">📥 CSV 내보내기</button>
+        </div>
+
+        <div class="table-wrap">
+          <table id="admin-table">
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>신청일</th>
+                <th>성명</th>
+                <th>직책</th>
+                <th>사번</th>
+                <th>지역</th>
+                <th>타입</th>
+                <th>입실일</th>
+                <th>퇴실일</th>
+                <th>상태</th>
+                <th>처리</th>
+              </tr>
+            </thead>
+            <tbody id="admin-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 이용 지역 관리 섹션 ── -->
+    <div id="admin-section-regions" style="display:none;">
+
+      <!-- 지역 추가 -->
+      <div class="card">
+        <div class="card-title">➕ 새 지역 추가</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>지역명 <span class="required">*</span></label>
+            <input type="text" id="new-region-name" placeholder="예: 소노 부산">
+            <span class="input-hint">신청 페이지 드롭다운에 표시될 이름을 입력하세요.</span>
+          </div>
+          <div class="form-group">
+            <label>객실 타입 <span class="required">*</span></label>
+            <input type="text" id="new-region-types" placeholder="스탠다드 (2인), 디럭스 (4인)">
+            <span class="input-hint">쉼표(,)로 구분하여 여러 타입을 입력하세요.</span>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="addRegion()">지역 추가</button>
+        </div>
+      </div>
+
+      <!-- 지역 목록 -->
+      <div class="card">
+        <div class="card-title">🗂️ 등록된 지역 목록</div>
+        <div id="region-list"></div>
+      </div>
+
+    </div>
+
+    <!-- ── 안내사항 관리 섹션 ── -->
+    <div id="admin-section-notice" style="display:none;">
+      <div class="card">
+        <div class="card-title">📝 신청 전 안내사항 편집</div>
+        <p style="font-size:13px; color:var(--gray-500); margin-bottom: 1rem;">
+          아래 항목들이 신청 페이지 상단 안내박스에 표시됩니다. 항목을 추가·수정·삭제하거나 순서를 변경할 수 있습니다.
+        </p>
+        <div id="notice-editor-list"></div>
+        <div style="display:flex; gap:8px; margin-top: 1rem;">
+          <input type="text" id="notice-new-item" placeholder="새 안내 항목 입력..." style="flex:1;">
+          <button class="btn btn-primary" onclick="addNoticeItem()">+ 항목 추가</button>
+        </div>
+      </div>
+      <div class="card" style="background: var(--gray-50);">
+        <div class="card-title">👁️ 미리보기</div>
+        <div class="notice" id="notice-preview"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 관리자 로그인 모달 -->
+<div class="modal-overlay" id="login-overlay">
+  <div class="modal" style="max-width: 380px;">
+    <h2>🔐 관리자 로그인</h2>
+    <div style="margin-bottom: 1rem;">
+      <div class="form-group" style="margin-bottom: 12px;">
+        <label>아이디</label>
+        <input type="text" id="login-id" placeholder="아이디 입력" autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label>비밀번호</label>
+        <input type="password" id="login-pw" placeholder="비밀번호 입력" autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
+      </div>
+      <div id="login-error" style="color: var(--danger); font-size: 13px; margin-top: 8px; display: none;">
+        아이디 또는 비밀번호가 올바르지 않습니다.
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeLoginModal()">취소</button>
+      <button class="btn btn-primary" onclick="doLogin()">로그인</button>
+    </div>
+  </div>
+</div>
+
+<!-- 상세보기 모달 -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <h2>📄 신청서 상세 정보</h2>
+    <div id="modal-content"></div>
+    <div class="modal-actions" id="modal-actions"></div>
+  </div>
+</div>
+
+<script>
+let ROOM_TYPES = {
+  '설악': ['스탠다드 (2인)', '디럭스 (4인)', '패밀리 (6인)'],
+  '제주': ['스탠다드 (2인)', '패밀리 스위트 (6인)', '오션뷰 (2인)'],
+  '양양': ['오션뷰 스탠다드 (2인)', '오션뷰 디럭스 (4인)'],
+  '델피노': ['스탠다드 (2인)', '디럭스 (4인)'],
+};
+
+let applications = [];
+let nextId = 1001;
+
+const ADMIN_ID = 'admin';
+const ADMIN_PW = 'hansei5319';
+let isAdminLoggedIn = false;
+
+function requireAdminLogin() {
+  if (isAdminLoggedIn) {
+    switchPage('admin');
+    document.querySelectorAll('.nav-tab').forEach((t, i) => t.classList.toggle('active', i === 2));
+  } else {
+    document.getElementById('login-id').value = '';
+    document.getElementById('login-pw').value = '';
+    document.getElementById('login-error').style.display = 'none';
+    document.getElementById('login-overlay').classList.add('open');
+    setTimeout(() => document.getElementById('login-id').focus(), 100);
+  }
+}
+
+function doLogin() {
+  const id = document.getElementById('login-id').value.trim();
+  const pw = document.getElementById('login-pw').value;
+  if (id === ADMIN_ID && pw === ADMIN_PW) {
+    isAdminLoggedIn = true;
+    document.getElementById('login-overlay').classList.remove('open');
+    switchPage('admin');
+    document.querySelectorAll('.nav-tab').forEach((t, i) => t.classList.toggle('active', i === 2));
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('login-pw').value = '';
+    document.getElementById('login-pw').focus();
+  }
+}
+
+function closeLoginModal() {
+  document.getElementById('login-overlay').classList.remove('open');
+}
+
+function switchPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (name === 'admin') { renderAdminTable(); updateStats(); renderRegionList(); syncFilterRegion(); }
+}
+
+function switchAdminTab(tab, el) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('admin-section-applications').style.display = tab === 'applications' ? '' : 'none';
+  document.getElementById('admin-section-regions').style.display = tab === 'regions' ? '' : 'none';
+  document.getElementById('admin-section-notice').style.display = tab === 'notice' ? '' : 'none';
+  if (tab === 'regions') renderRegionList();
+  if (tab === 'notice') renderNoticeEditor();
+}
+
+/* ── 지역 관리 ── */
+function syncFilterRegion() {
+  const sel = document.getElementById('filter-region');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">전체 지역</option>';
+  Object.keys(ROOM_TYPES).forEach(r => {
+    const o = document.createElement('option');
+    o.value = r; o.textContent = r; sel.appendChild(o);
+  });
+  sel.value = cur;
+}
+
+function syncApplyRegion() {
+  const sel = document.getElementById('region');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">지역 선택</option>';
+  Object.keys(ROOM_TYPES).forEach(r => {
+    const o = document.createElement('option');
+    o.value = r; o.textContent = r; sel.appendChild(o);
+  });
+  sel.value = (ROOM_TYPES[cur] ? cur : '');
+  updateRoomTypes();
+}
+
+function renderRegionList() {
+  const el = document.getElementById('region-list');
+  const keys = Object.keys(ROOM_TYPES);
+  if (!keys.length) {
+    el.innerHTML = '<div class="empty-state">등록된 지역이 없습니다.</div>';
+    return;
+  }
+  el.innerHTML = keys.map(region => `
+    <div class="region-item" id="region-item-${CSS.escape(region)}">
+      <div class="region-item-header">
+        <span class="region-item-name">📍 ${region}</span>
+        <div class="region-item-actions">
+          <button class="btn btn-danger btn-sm" onclick="deleteRegion('${region}')">지역 삭제</button>
+        </div>
+      </div>
+      <div class="type-chips" id="chips-${CSS.escape(region)}">
+        ${ROOM_TYPES[region].map((t, i) => `
+          <span class="type-chip">
+            ${t}
+            <button class="type-chip-del" title="타입 삭제" onclick="deleteRoomType('${region}', ${i})">✕</button>
+          </span>
+        `).join('')}
+      </div>
+      <div class="add-type-row">
+        <input type="text" id="addtype-${CSS.escape(region)}" placeholder="새 객실 타입 (예: 패밀리 (6인))">
+        <button class="btn btn-secondary btn-sm" onclick="addRoomType('${region}')">+ 타입 추가</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addRegion() {
+  const nameEl = document.getElementById('new-region-name');
+  const typesEl = document.getElementById('new-region-types');
+  const name = nameEl.value.trim();
+  const types = typesEl.value.split(',').map(t => t.trim()).filter(Boolean);
+  if (!name) { alert('지역명을 입력해 주세요.'); return; }
+  if (ROOM_TYPES[name]) { alert('이미 존재하는 지역명입니다.'); return; }
+  if (!types.length) { alert('객실 타입을 하나 이상 입력해 주세요.'); return; }
+  ROOM_TYPES[name] = types;
+  nameEl.value = ''; typesEl.value = '';
+  renderRegionList();
+  syncFilterRegion();
+  syncApplyRegion();
+  alert(`"${name}" 지역이 추가되었습니다.`);
+}
+
+function deleteRegion(region) {
+  const linked = applications.filter(a => a.region === region);
+  if (linked.length) {
+    if (!confirm(`"${region}"에 연결된 신청 ${linked.length}건이 있습니다. 그래도 삭제하시겠습니까?`)) return;
+  } else {
+    if (!confirm(`"${region}" 지역을 삭제하시겠습니까?`)) return;
+  }
+  delete ROOM_TYPES[region];
+  renderRegionList();
+  syncFilterRegion();
+  syncApplyRegion();
+}
+
+function deleteRoomType(region, idx) {
+  if (!confirm(`"${ROOM_TYPES[region][idx]}" 타입을 삭제하시겠습니까?`)) return;
+  ROOM_TYPES[region].splice(idx, 1);
+  renderRegionList();
+  syncApplyRegion();
+}
+
+function addRoomType(region) {
+  const el = document.getElementById('addtype-' + CSS.escape(region));
+  const val = el.value.trim();
+  if (!val) { alert('타입명을 입력해 주세요.'); return; }
+  if (ROOM_TYPES[region].includes(val)) { alert('이미 존재하는 타입입니다.'); return; }
+  ROOM_TYPES[region].push(val);
+  el.value = '';
+  renderRegionList();
+  syncApplyRegion();
+}
+
+/* ── 안내사항 관리 ── */
+let noticeItems = [
+  '신청은 1인 1회 원칙이며, 전년도 이용자는 후순위로 배정됩니다.',
+  '승인 후 취소 시 당해 연도 재신청이 불가합니다.',
+  '이용 희망일 기준 최소 <strong>14일 전</strong>까지 신청하여 주십시오.',
+  '문의: 행정처 인사총무팀 ☎ 내선 319',
+];
+
+function renderNoticeBox() {
+  const el = document.getElementById('notice-box');
+  if (!el) return;
+  el.innerHTML = '<strong>📌 신청 전 안내사항</strong><ul>' +
+    noticeItems.map(t => `<li>${t}</li>`).join('') + '</ul>';
+}
+
+function renderNoticePreview() {
+  const el = document.getElementById('notice-preview');
+  if (!el) return;
+  el.innerHTML = '<strong>📌 신청 전 안내사항</strong><ul>' +
+    noticeItems.map(t => `<li>${t}</li>`).join('') + '</ul>';
+}
+
+function renderNoticeEditor() {
+  const el = document.getElementById('notice-editor-list');
+  if (!el) return;
+  el.innerHTML = noticeItems.map((item, i) => `
+    <div style="display:flex; align-items:center; gap:8px; padding: 8px 0; border-bottom: 1px solid var(--border);">
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <button class="btn btn-secondary btn-sm" style="padding:2px 7px; font-size:11px;" onclick="moveNoticeItem(${i},-1)" ${i===0?'disabled':''}>▲</button>
+        <button class="btn btn-secondary btn-sm" style="padding:2px 7px; font-size:11px;" onclick="moveNoticeItem(${i},1)" ${i===noticeItems.length-1?'disabled':''}>▼</button>
+      </div>
+      <input type="text" value="${item.replace(/"/g,'&quot;')}" style="flex:1; font-size:13px;"
+        onchange="updateNoticeItem(${i}, this.value)">
+      <button class="btn btn-danger btn-sm" onclick="deleteNoticeItem(${i})">삭제</button>
+    </div>
+  `).join('');
+  renderNoticePreview();
+}
+
+function addNoticeItem() {
+  const el = document.getElementById('notice-new-item');
+  const val = el.value.trim();
+  if (!val) { alert('항목 내용을 입력해 주세요.'); return; }
+  noticeItems.push(val);
+  el.value = '';
+  renderNoticeEditor();
+  renderNoticeBox();
+}
+
+function updateNoticeItem(i, val) {
+  noticeItems[i] = val;
+  renderNoticeBox();
+  renderNoticePreview();
+}
+
+function deleteNoticeItem(i) {
+  if (!confirm('이 항목을 삭제하시겠습니까?')) return;
+  noticeItems.splice(i, 1);
+  renderNoticeEditor();
+  renderNoticeBox();
+}
+
+function moveNoticeItem(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= noticeItems.length) return;
+  [noticeItems[i], noticeItems[j]] = [noticeItems[j], noticeItems[i]];
+  renderNoticeEditor();
+  renderNoticeBox();
+}
+
+function updateRoomTypes() {
+  const region = document.getElementById('region').value;
+  const sel = document.getElementById('room_type');
+  sel.innerHTML = '<option value="">타입 선택</option>';
+  if (region && ROOM_TYPES[region]) {
+    ROOM_TYPES[region].forEach(t => {
+      const o = document.createElement('option');
+      o.textContent = t; o.value = t; sel.appendChild(o);
+    });
+  }
+}
+
+function setMinCheckout() {
+  const ci = document.getElementById('checkin_date').value;
+  if (ci) {
+    const d = new Date(ci);
+    d.setDate(d.getDate() + 1);
+    document.getElementById('checkout_date').min = d.toISOString().split('T')[0];
+  }
+}
+
+function validate() {
+  const fields = ['emp_no','name','position','email','phone','region','room_type','checkin_date','checkout_date'];
+  const labels = ['사번','성명','직책','이메일','연락처','지역','객실 타입','입실일','퇴실일'];
+  for (let i = 0; i < fields.length; i++) {
+    const val = document.getElementById(fields[i]).value.trim();
+    if (!val) { alert(labels[i] + '을(를) 입력/선택해 주세요.'); return false; }
+  }
+  if (!document.getElementById('agree').checked) {
+    alert('개인정보 수집 및 이용 동의가 필요합니다.'); return false;
+  }
+  const ci = new Date(document.getElementById('checkin_date').value);
+  const co = new Date(document.getElementById('checkout_date').value);
+  if (co <= ci) { alert('퇴실일은 입실일보다 이후여야 합니다.'); return false; }
+  return true;
+}
+
+function submitApplication() {
+  if (!validate()) return;
+  const app = {
+    id: nextId++,
+    created_at: new Date().toLocaleDateString('ko-KR'),
+    emp_no: document.getElementById('emp_no').value.trim(),
+    name: document.getElementById('name').value.trim(),
+    position: document.getElementById('position').value,
+    department: document.getElementById('department').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    region: document.getElementById('region').value,
+    room_type: document.getElementById('room_type').value,
+    checkin_date: document.getElementById('checkin_date').value,
+    checkout_date: document.getElementById('checkout_date').value,
+    num_guests: document.getElementById('num_guests').value,
+    purpose: document.getElementById('purpose').value.trim(),
+    status: 'PENDING',
+    admin_note: '',
+  };
+  applications.push(app);
+  document.getElementById('form-area').style.display = 'none';
+  document.getElementById('success-area').classList.add('show');
+  updateStats();
+}
+
+function resetForm() {
+  if (!confirm('입력 내용을 초기화하시겠습니까?')) return;
+  ['emp_no','name','department','email','phone','checkin_date','checkout_date','purpose'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  ['position','region'].forEach(id => document.getElementById(id).selectedIndex = 0);
+  updateRoomTypes();
+  document.getElementById('agree').checked = false;
+}
+
+function newApplication() {
+  document.getElementById('success-area').classList.remove('show');
+  document.getElementById('form-area').style.display = '';
+  resetForm();
+  document.getElementById('emp_no').focus();
+}
+
+function updateStats() {
+  document.getElementById('stat-total').textContent = applications.length;
+  document.getElementById('stat-pending').textContent = applications.filter(a=>a.status==='PENDING').length;
+  document.getElementById('stat-approved').textContent = applications.filter(a=>a.status==='APPROVED').length;
+  document.getElementById('stat-rejected').textContent = applications.filter(a=>a.status==='REJECTED').length;
+}
+
+function statusBadge(s) {
+  const map = { PENDING:'대기', APPROVED:'승인', REJECTED:'반려', CANCELLED:'취소' };
+  const cls = { PENDING:'badge-pending', APPROVED:'badge-approved', REJECTED:'badge-rejected', CANCELLED:'badge-cancelled' };
+  return `<span class="badge-status ${cls[s]||''}">${map[s]||s}</span>`;
+}
+
+function renderAdminTable() {
+  const sf = document.getElementById('filter-status').value;
+  const rf = document.getElementById('filter-region').value;
+  const nf = document.getElementById('filter-name').value.trim();
+  let list = applications.filter(a =>
+    (!sf || a.status === sf) &&
+    (!rf || a.region === rf) &&
+    (!nf || a.name.includes(nf))
+  );
+  const tbody = document.getElementById('admin-tbody');
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="11" style="text-align:center; padding: 2rem; color: var(--gray-500);">신청 내역이 없습니다.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = list.map(a => `
+    <tr>
+      <td style="color: var(--gray-500);">#${a.id}</td>
+      <td>${a.created_at}</td>
+      <td><strong>${a.name}</strong></td>
+      <td style="color: var(--gray-500);">${a.position}</td>
+      <td style="font-family: monospace; font-size: 12px;">${a.emp_no}</td>
+      <td>소노 ${a.region}</td>
+      <td style="color: var(--gray-500);">${a.room_type}</td>
+      <td>${a.checkin_date}</td>
+      <td>${a.checkout_date}</td>
+      <td>${statusBadge(a.status)}</td>
+      <td>
+        <button class="btn btn-secondary btn-sm" onclick="openModal(${a.id})">상세</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function openModal(id) {
+  const a = applications.find(x => x.id === id);
+  if (!a) return;
+  const rows = [
+    ['신청번호', '#' + a.id],
+    ['신청일', a.created_at],
+    ['성명', a.name],
+    ['직책', a.position],
+    ['소속', a.department || '—'],
+    ['사번', a.emp_no],
+    ['이메일', a.email],
+    ['연락처', a.phone],
+    ['지역', '소노 ' + a.region],
+    ['객실 타입', a.room_type],
+    ['입실일', a.checkin_date],
+    ['퇴실일', a.checkout_date],
+    ['이용 인원', a.num_guests],
+    ['요청 사항', a.purpose || '—'],
+    ['상태', statusBadge(a.status)],
+    ['처리 메모', a.admin_note || '—'],
+  ];
+  document.getElementById('modal-content').innerHTML = rows.map(([l,v]) =>
+    `<div class="detail-row"><span class="detail-label">${l}</span><span>${v}</span></div>`
+  ).join('');
+
+  let actions = `<button class="btn btn-secondary btn-sm" onclick="closeModalBtn()">닫기</button>`;
+  if (a.status === 'PENDING') {
+    actions += `<button class="btn btn-danger btn-sm" onclick="processApp(${id},'REJECTED')">반려</button>`;
+    actions += `<button class="btn btn-success btn-sm" onclick="processApp(${id},'APPROVED')">승인</button>`;
+  }
+  document.getElementById('modal-actions').innerHTML = actions;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function processApp(id, status) {
+  const note = status === 'REJECTED' ? prompt('반려 사유를 입력하세요:') : prompt('처리 메모 (선택):');
+  const a = applications.find(x => x.id === id);
+  if (!a) return;
+  a.status = status;
+  if (note !== null) a.admin_note = note;
+  closeModalBtn();
+  renderAdminTable();
+  updateStats();
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModalBtn();
+}
+function closeModalBtn() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function searchMyApps() {
+  const empno = document.getElementById('search_empno').value.trim();
+  if (!empno) { alert('사번을 입력해 주세요.'); return; }
+  const list = applications.filter(a => a.emp_no === empno);
+  const el = document.getElementById('myapp-area');
+  if (!list.length) {
+    el.innerHTML = '<div class="empty-state">📭 해당 사번으로 접수된 신청 내역이 없습니다.</div>';
+    return;
+  }
+  el.innerHTML = `<div class="table-wrap"><table>
+    <thead><tr><th>번호</th><th>지역</th><th>타입</th><th>입실일</th><th>퇴실일</th><th>상태</th><th>처리 메모</th></tr></thead>
+    <tbody>
+    ${list.map(a => `<tr>
+      <td style="color:var(--gray-500)">#${a.id}</td>
+      <td>소노 ${a.region}</td>
+      <td style="color:var(--gray-500)">${a.room_type}</td>
+      <td>${a.checkin_date}</td>
+      <td>${a.checkout_date}</td>
+      <td>${statusBadge(a.status)}</td>
+      <td style="color:var(--gray-500)">${a.admin_note || '—'}</td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div>`;
+}
+
+function exportCSV() {
+  if (!applications.length) { alert('내보낼 데이터가 없습니다.'); return; }
+  const cols = ['번호','신청일','성명','직책','사번','소속','이메일','연락처','지역','타입','입실일','퇴실일','인원','요청사항','상태','처리메모'];
+  const rows = applications.map(a => [
+    a.id, a.created_at, a.name, a.position, a.emp_no, a.department,
+    a.email, a.phone, '소노'+a.region, a.room_type,
+    a.checkin_date, a.checkout_date, a.num_guests, a.purpose, a.status, a.admin_note
+  ].map(v => '"' + String(v||'').replace(/"/g,'""') + '"').join(','));
+  const csv = [cols.join(','), ...rows].join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = '콘도신청목록.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* 샘플 데이터 */
+(function seedDemoData() {
+  const sample = [
+    { name:'김민준', position:'교수', emp_no:'20210023', department:'경영학과', email:'mj.kim@univ.ac.kr', phone:'010-1234-5678', region:'설악', room_type:'디럭스 (4인)', checkin_date:'2025-08-01', checkout_date:'2025-08-03', num_guests:'4명', purpose:'가족 휴가', status:'APPROVED', admin_note:'승인 완료' },
+    { name:'이서연', position:'직원', emp_no:'20190055', department:'총무처', email:'sy.lee@univ.ac.kr', phone:'010-2345-6789', region:'제주', room_type:'스탠다드 (2인)', checkin_date:'2025-08-15', checkout_date:'2025-08-17', num_guests:'2명', purpose:'', status:'PENDING', admin_note:'' },
+    { name:'박지훈', position:'조교수', emp_no:'20220011', department:'컴퓨터공학과', email:'jh.park@univ.ac.kr', phone:'010-3456-7890', region:'양양', room_type:'오션뷰 스탠다드 (2인)', checkin_date:'2025-09-05', checkout_date:'2025-09-07', num_guests:'2명', purpose:'연구 휴식', status:'PENDING', admin_note:'' },
+    { name:'최유나', position:'강사', emp_no:'20230099', department:'영어영문학과', email:'yn.choi@univ.ac.kr', phone:'010-4567-8901', region:'델피노', room_type:'스탠다드 (2인)', checkin_date:'2025-07-20', checkout_date:'2025-07-22', num_guests:'2명', purpose:'', status:'REJECTED', admin_note:'해당 기간 객실 만료' },
+  ];
+  sample.forEach(s => { applications.push({ id: nextId++, created_at: '2025.06.10', ...s }); });
+  updateStats();
+  syncFilterRegion();
+  syncApplyRegion();
+  renderNoticeBox();
+})();
+</script>
+</body>
+</html>
